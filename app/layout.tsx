@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { MotionProvider } from "@/components/providers/motion-provider";
@@ -16,6 +16,12 @@ const inter = Inter({
   display: "swap",
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "BioTrace Global — Where Science Meets Sustainability",
   description:
@@ -26,7 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${jakarta.variable} ${inter.variable} h-full antialiased`}
+      className={`${jakarta.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <MotionProvider>

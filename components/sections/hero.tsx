@@ -113,7 +113,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.1, ease: easeOut }}
-        className="pointer-events-none relative z-20 -mt-[224px] h-[440px] w-full overflow-hidden [--wl:40px] [mask-image:linear-gradient(to_bottom,transparent_var(--wl),rgba(0,0,0,0.7)_calc(var(--wl)_+_50px),#000_calc(var(--wl)_+_120px))] md:[--wl:56px] sm:h-[540px] md:-mt-[240px] md:h-[700px]"
+        className="pointer-events-none relative z-20 -mt-[224px] h-[clamp(300px,calc(100svh_-_400px),480px)] w-full overflow-hidden [--wl:40px] [mask-image:linear-gradient(to_bottom,transparent_var(--wl),rgba(0,0,0,0.7)_calc(var(--wl)_+_50px),#000_calc(var(--wl)_+_120px))] md:[--wl:56px] md:-mt-[240px] md:h-[clamp(380px,calc(100svh_-_470px),620px)]"
       >
         <motion.div
           style={{ y: videoY }}
