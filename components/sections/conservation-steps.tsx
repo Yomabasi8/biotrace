@@ -22,22 +22,22 @@ const steps = [
   {
     step: "01",
     title: "Observe",
-    body: "Bio-acoustic sensors, eDNA stream sampling, and satellite telemetry capture raw ecological signals around the clock.",
+    body: "We begin by watching and listening, monitoring coastal and marine ecosystems, documenting changes in biodiversity, and identifying the environmental and community challenges that need attention.",
   },
   {
     step: "02",
     title: "Research",
-    body: "Peer-reviewed ecological models, biodiversity indexes, and neural soundscape classifiers model population trajectories.",
+    body: "We investigate what we observe using scientific tools, from sampling to ecological assessments, and an interdisciplinary approach to understand the drivers behind what is happening in our oceans.",
   },
   {
     step: "03",
     title: "Collaborate",
-    body: "Co-designing preservation priorities alongside indigenous land councils, universities, and early-career field scientists.",
+    body: "No single organization can protect the ocean alone. We partner with universities, researchers, local communities, and other conservation organizations to pool knowledge, resources, and action.",
   },
   {
     step: "04",
     title: "Act",
-    body: "Direct corridor restoration, automated anti-poaching acoustic geofences, and evidence packages for environmental policy.",
+    body: "We turn research and partnership into tangible outcomes, whether community-based conservation initiatives, policy engagement, education programs, or direct environmental action.",
   },
 ];
 
@@ -463,7 +463,7 @@ function StepCard({
           STEP {step}
         </span>
         <h3 className="mt-5 font-sans text-xl font-medium tracking-normal text-ink uppercase">{title}</h3>
-        <p className="mt-2 text-[13px] leading-[21px] text-ink-soft xl:max-w-[192px]">{body}</p>
+        <p className="mt-2 text-[13px] leading-[21px] text-ink-soft">{body}</p>
       </motion.div>
     </motion.article>
   );

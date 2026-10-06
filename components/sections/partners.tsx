@@ -16,16 +16,6 @@ const word: Variants = {
 
 const focusAreas = ["Environment", "Sustainability", "Biodiversity", "Community"];
 
-const partnerTypes = [
-  "Universities",
-  "Environmental NGOs",
-  "Research Foundations",
-  "Community Stewards",
-  "Hardware Innovators",
-  "Park Authorities",
-  "Field Scientists",
-];
-
 export function Partners() {
   return (
     <section id="partners" className="relative isolate overflow-hidden bg-white pt-20 pb-20 md:pt-[72px] md:pb-24">
@@ -61,7 +51,6 @@ export function Partners() {
         <FeaturedPartner />
       </div>
 
-      <PartnerTicker />
     </section>
   );
 }
@@ -185,41 +174,5 @@ function PartnerOrbit() {
         </motion.div>
       </motion.div>
     </div>
-  );
-}
-
-// Endless ticker of the kinds of organisations BioTrace partners with
-function PartnerTicker() {
-  const reduce = useReducedMotion();
-  const row = [...partnerTypes, ...partnerTypes];
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, amount: 0.5 }}
-      transition={{ duration: 1, delay: 0.2 }}
-      className="mt-14 md:mt-16"
-    >
-      <p className="text-center font-mono text-xs tracking-[0.18em] text-ink-soft/70 uppercase">
-        Open to collaborators across
-      </p>
-      <div className="relative mt-5 overflow-hidden [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
-        <motion.ul
-          animate={reduce ? undefined : { x: ["0%", "-50%"] }}
-          transition={{ duration: 36, repeat: Infinity, ease: "linear" }}
-          className="flex w-max items-center"
-        >
-          {row.map((type, i) => (
-            <li key={i} className="flex items-center" aria-hidden={i >= partnerTypes.length}>
-              <span className="px-6 text-xl font-semibold tracking-[-0.5px] whitespace-nowrap text-ink/80 md:px-9 md:text-2xl font-heading">
-                {type}
-              </span>
-              <span className="h-1.5 w-1.5 rounded-full bg-coral/70" />
-            </li>
-          ))}
-        </motion.ul>
-      </div>
-    </motion.div>
   );
 }
