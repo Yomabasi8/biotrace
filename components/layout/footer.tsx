@@ -13,7 +13,7 @@ const columns: { title: string; links: { label: string; href: string; accent?: b
     links: [
       { label: "Home", href: "/" },
       { label: "About", href: "/about" },
-      { label: "Our Work", href: "/#process" },
+      { label: "Our Work", href: "/work" },
       { label: "Research & Stories", href: "/#research" },
       { label: "Get Involved", href: "/#get-involved" },
       { label: "Partners", href: "/#partners" },

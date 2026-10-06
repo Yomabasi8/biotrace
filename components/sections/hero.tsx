@@ -97,7 +97,7 @@ export function Hero() {
             variants={trail}
             className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-[76px] md:mt-12"
           >
-            <ButtonLink href="#work" className="w-full max-w-[260px] sm:w-auto">
+            <ButtonLink href="/work" className="w-full max-w-[260px] sm:w-auto">
               Explore our Work
             </ButtonLink>
             <ButtonLink href="#support" variant="blush" className="w-full max-w-[260px] sm:w-auto">

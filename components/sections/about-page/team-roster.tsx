@@ -22,7 +22,7 @@ const members = [
   },
   {
     name: "Yomabasi Fortune Bassey",
-    role: "Website Designer & Developer",
+    role: "Website Designer & Head of Communications",
     bio: "As the Website Designer and Developer, she leads the design and development of BioTrace Global’s digital presence, while also creating visuals that communicate the organisation’s work and impact.",
     src: "/Images/team/yomabasi.webp",
     ring: "#33b843",
@@ -79,7 +79,8 @@ export function TeamRoster() {
           ))}
         </motion.h2>
 
-        <ul className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 md:mt-[72px] lg:grid-cols-4 lg:gap-x-10">
+        {/* On desktop each card spans four shared rows (photo, name, role, bio) via subgrid, so a role that wraps to two lines can't push one bio lower than the rest */}
+        <ul className="mt-14 grid gap-x-8 gap-y-14 sm:grid-cols-2 md:mt-[72px] lg:grid-cols-4 lg:gap-x-10 lg:gap-y-0">
           {members.map((m, i) => (
             <MemberCard key={m.name} {...m} index={i} />
           ))}
@@ -105,7 +106,7 @@ function MemberCard({
       whileHover="hover"
       viewport={{ once: true, amount: 0.4 }}
       variants={{ visible: { transition: { staggerChildren: 0.09, delayChildren: index * 0.12 } } }}
-      className="group mx-auto flex max-w-[280px] flex-col items-center text-center"
+      className="group mx-auto flex max-w-[280px] flex-col items-center text-center lg:row-span-4 lg:grid lg:grid-rows-subgrid lg:items-start lg:justify-items-center"
     >
       {/* Avatar: pops in and a ring in its own colour draws around it */}
       <motion.div
@@ -152,7 +153,7 @@ function MemberCard({
       <motion.p variants={rise} className="mt-1.5 font-heading text-[15px] tracking-[-0.2px] text-[#2a5568] italic">
         {role}
       </motion.p>
-      <motion.p variants={rise} className="mt-4 text-sm leading-[1.5] text-ink-soft">
+      <motion.p variants={rise} lang="en" className="mt-4 text-justify text-sm leading-[1.5] text-ink-soft hyphens-auto [text-align-last:center]">
         {bio}
       </motion.p>
     </motion.li>

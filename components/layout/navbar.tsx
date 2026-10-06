@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 const links = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about" },
-  { label: "Our Work", href: "/#process" },
+  { label: "Our Work", href: "/work" },
   { label: "Partners", href: "/#partners" },
   { label: "Research & Stories", href: "/#research" },
 ];
