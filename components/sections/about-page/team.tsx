@@ -12,12 +12,14 @@ import { cn } from "@/lib/utils";
  * (CSS margin percentages resolve against width), so the arrangement scales as one piece.
  */
 type Member = { kind: "photo"; src: string; alt: string; w: number; h: number; offset: number };
-type Blank = { kind: "blank"; ratio: number; offset: number };
+// A coloured shape with no photo: either a plain pill (colour + ratio) or an exact cut-out image
+type Blank = { kind: "blank"; ratio: number; offset: number; color?: string; shapeSrc?: string };
 type Cell = Member | Blank;
 
 const columns: Cell[][] = [
   [
-    { kind: "photo", src: "/Images/James.png", alt: "BioTrace Global team member smiling", w: 969, h: 840, offset: 6.8 },
+    // Same green shape as the original photo, without the portrait
+    { kind: "blank", ratio: 969 / 840, offset: 6.8, shapeSrc: "/Images/team/green-shape.png" },
     { kind: "photo", src: "/Images/prof.png", alt: "BioTrace Global team member in glasses and a gold embroidered top", w: 969, h: 1248, offset: 15.6 },
   ],
   [
@@ -111,7 +113,7 @@ export function Team() {
                         onHover={() => setHovered(id)}
                       />
                     ) : (
-                      <BlankCard ratio={cell.ratio} delay={delay} floatPhase={(c * 2 + r) * 0.9} dimmed={hovered !== null} />
+                      <BlankCard {...cell} delay={delay} floatPhase={(c * 2 + r) * 0.9} dimmed={hovered !== null} />
                     )}
                   </div>
                 );
@@ -194,11 +196,12 @@ function PhotoCard({
 
 function BlankCard({
   ratio,
+  color = "#f5c3cc",
+  shapeSrc,
   delay,
   floatPhase,
   dimmed,
-}: {
-  ratio: number;
+}: Omit<Blank, "kind" | "offset"> & {
   delay: number;
   floatPhase: number;
   dimmed: boolean;
@@ -213,9 +216,11 @@ function BlankCard({
         <motion.div
           animate={{ opacity: dimmed ? 0.55 : 1, scale: dimmed ? 0.96 : 1 }}
           transition={{ type: "spring", stiffness: 260, damping: 22 }}
-          className={cn("w-full rounded-full bg-[#f5c3cc]")}
-          style={{ aspectRatio: ratio }}
-        />
+          className={cn("relative w-full", !shapeSrc && "rounded-full")}
+          style={{ aspectRatio: ratio, backgroundColor: shapeSrc ? undefined : color }}
+        >
+          {shapeSrc && <Image src={shapeSrc} alt="" fill sizes="(min-width: 1024px) 280px, 30vw" className="object-contain" />}
+        </motion.div>
       </motion.div>
     </motion.div>
   );

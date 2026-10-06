@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { Handshake } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
+import { useGetInvolved } from "@/components/get-involved/get-involved-provider";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { easeOut, fadeUp } from "@/lib/motion";
 
@@ -13,8 +13,6 @@ const word: Variants = {
   hidden: { opacity: 0, y: "0.5em", filter: "blur(8px)" },
   visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: easeOut } },
 };
-
-const focusAreas = ["Environment", "Sustainability", "Biodiversity", "Community"];
 
 export function Partners() {
   return (
@@ -47,39 +45,26 @@ export function Partners() {
           Working alongside premier scientific institutions, global research foundations, and local
           community stewards.
         </motion.p>
-
-        <FeaturedPartner />
       </div>
+
+      <FeaturedPartner />
 
     </section>
   );
 }
 
 function FeaturedPartner() {
+  const getInvolved = useGetInvolved();
   return (
     <motion.article
       initial={{ opacity: 0, y: 48 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.3 }}
       transition={{ duration: 1, ease: easeOut }}
-      className="relative mt-12 overflow-hidden rounded-[28px] border border-[#dbe6eb] bg-[linear-gradient(135deg,#f4f8fa_0%,#eaf1f4_100%)] md:mt-16"
+      className="relative mt-12 overflow-hidden border-y border-[#dbe6eb] bg-[linear-gradient(135deg,#f4f8fa_0%,#eaf1f4_100%)] md:mt-16"
     >
-      {/* Faint contour lines, like a topographic survey map */}
-      <svg aria-hidden className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.35]" preserveAspectRatio="none">
-        <defs>
-          <pattern id="partner-contours" width="220" height="220" patternUnits="userSpaceOnUse">
-            <path
-              d="M0 110 Q55 70 110 110 T220 110 M0 150 Q55 110 110 150 T220 150 M0 70 Q55 30 110 70 T220 70 M0 190 Q55 150 110 190 T220 190 M0 30 Q55 -10 110 30 T220 30"
-              fill="none"
-              stroke="#196180"
-              strokeOpacity="0.12"
-            />
-          </pattern>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#partner-contours)" />
-      </svg>
-
-      <div className="relative grid items-center gap-10 p-6 sm:p-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16 lg:p-16">
+      {/* Full-bleed band; the content inside stays on the site's 1200px grid */}
+      <div className="container-site relative grid items-center gap-10 py-10 sm:py-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16 lg:py-16">
         <PartnerOrbit />
 
         <motion.div
@@ -105,20 +90,14 @@ function FeaturedPartner() {
             protect these ecosystems, turning shared research into lasting, sustainable action.
           </motion.p>
 
-          <motion.ul variants={fadeUp} className="mt-6 flex flex-wrap gap-2">
-            {focusAreas.map((area) => (
-              <li
-                key={area}
-                className="rounded-full border border-[#cddbe2] bg-white px-3.5 py-1.5 text-[13px] text-ink-soft transition-colors duration-300 hover:border-primary/40 hover:text-primary"
-              >
-                {area}
-              </li>
-            ))}
-          </motion.ul>
-
           <motion.div variants={fadeUp} className="mt-9">
-            <ButtonLink href="#get-involved" className="gap-2">
-              <Handshake className="h-[18px] w-[18px]" strokeWidth={1.8} />
+            <ButtonLink
+              href="/#get-involved"
+              onClick={(e) => {
+                e.preventDefault();
+                getInvolved.open("partner");
+              }}
+            >
               Become a Partner
             </ButtonLink>
           </motion.div>

@@ -2,12 +2,14 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
-import { AnimatePresence, motion, type Variants } from "motion/react";
+import { useGetInvolved } from "@/components/get-involved/get-involved-provider";
+import type { InterestId } from "@/lib/get-involved";
+import { motion, type Variants } from "motion/react";
 import { LivingReef } from "@/components/ui/living-reef";
 import { easeOut } from "@/lib/motion";
 
-const columns: { title: string; links: { label: string; href: string; accent?: boolean }[] }[] = [
+// opens: these links open the Get Involved form (optionally preselecting a pathway) instead of navigating
+const columns: { title: string; links: { label: string; href: string; accent?: boolean; opens?: InterestId | "any" }[] }[] = [
   {
     title: "Navigation",
     links: [
@@ -15,7 +17,7 @@ const columns: { title: string; links: { label: string; href: string; accent?: b
       { label: "About", href: "/about" },
       { label: "Our Work", href: "/work" },
       { label: "Research & Stories", href: "/#research" },
-      { label: "Get Involved", href: "/#get-involved" },
+      { label: "Get Involved", href: "/#get-involved", opens: "any" },
       { label: "Partners", href: "/#partners" },
     ],
   },
@@ -33,8 +35,8 @@ const columns: { title: string; links: { label: string; href: string; accent?: b
     title: "Connect & Support",
     links: [
       { label: "Donate to the Mission", href: "/#get-involved", accent: true },
-      { label: "Volunteer Application", href: "/#get-involved" },
-      { label: "Partner With Us", href: "/#partners" },
+      { label: "Volunteer Application", href: "/#get-involved", opens: "volunteer" },
+      { label: "Partner With Us", href: "/#partners", opens: "partner" },
       { label: "biotraceglobal@gmail.com", href: "mailto:biotraceglobal@gmail.com" },
     ],
   },
@@ -52,6 +54,7 @@ const rise: Variants = {
 };
 
 export function Footer() {
+  const getInvolved = useGetInvolved();
   return (
     <footer className="relative isolate overflow-hidden bg-[#0d4a63] text-white">
       <LivingReef className="-z-20" />
@@ -106,6 +109,14 @@ export function Footer() {
                     <li key={link.label}>
                       <Link
                         href={link.href}
+                        onClick={
+                          link.opens
+                            ? (e) => {
+                                e.preventDefault();
+                                getInvolved.open(link.opens === "any" ? undefined : link.opens);
+                              }
+                            : undefined
+                        }
                         className={
                           "group relative inline-block text-sm transition-colors duration-300 " +
                           (link.accent ? "text-[#f3a08c] hover:text-[#ffc0b0]" : "text-white/85 hover:text-white")
@@ -122,7 +133,7 @@ export function Footer() {
           </div>
         </motion.div>
 
-        <NewsletterBar />
+        <ConnectBar />
 
         <motion.div
           initial={{ opacity: 0 }}
@@ -148,10 +159,7 @@ export function Footer() {
   );
 }
 
-function NewsletterBar() {
-  const [email, setEmail] = useState("");
-  const [sent, setSent] = useState(false);
-
+function ConnectBar() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 32 }}
@@ -162,54 +170,17 @@ function NewsletterBar() {
     >
       <div>
         <h2 className="font-heading text-[22px] leading-tight font-semibold tracking-[-0.5px]">Connect with Us</h2>
-        <p className="mt-1 text-sm text-ink-soft">Have a question or want to collaborate?</p>
+        <p className="mt-1 text-sm text-ink-soft">Have a question or want to collaborate? We&apos;d love to hear from you.</p>
       </div>
 
-      <AnimatePresence mode="wait" initial={false}>
-        {sent ? (
-          <motion.p
-            key="thanks"
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            role="status"
-            className="text-sm font-medium text-primary"
-          >
-            Thanks! We&apos;ll be in touch soon.
-          </motion.p>
-        ) : (
-          <motion.form
-            key="form"
-            exit={{ opacity: 0, y: -8 }}
-            onSubmit={(e) => {
-              e.preventDefault();
-              setSent(true);
-            }}
-            className="flex w-full gap-2 md:w-auto"
-          >
-            <label htmlFor="footer-email" className="sr-only">
-              Email address
-            </label>
-            <input
-              id="footer-email"
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              className="h-10 min-w-0 flex-1 rounded-md bg-white px-4 text-sm text-ink placeholder:text-ink-soft/50 focus:ring-2 focus:ring-primary/40 focus:outline-none md:w-[260px] md:flex-none"
-            />
-            <motion.button
-              type="submit"
-              whileHover={{ y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              className="h-10 shrink-0 rounded-md bg-[#0b1714] px-5 text-sm font-medium text-white transition-colors hover:bg-black"
-            >
-              Subscribe
-            </motion.button>
-          </motion.form>
-        )}
-      </AnimatePresence>
+      <motion.a
+        href="mailto:biotraceglobal@gmail.com"
+        whileHover={{ y: -2 }}
+        whileTap={{ scale: 0.97 }}
+        className="inline-flex h-11 shrink-0 items-center justify-center self-start rounded-md bg-[#0b1714] px-6 text-sm font-medium text-white transition-colors hover:bg-black focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:self-auto"
+      >
+        Email Us
+      </motion.a>
     </motion.div>
   );
 }

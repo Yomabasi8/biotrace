@@ -12,6 +12,7 @@ import {
   useTransform,
 } from "motion/react";
 import { ButtonLink } from "@/components/ui/button";
+import { useGetInvolved } from "@/components/get-involved/get-involved-provider";
 import { easeOut } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -26,6 +27,7 @@ const links = [
 
 export function Navbar() {
   const pathname = usePathname();
+  const getInvolved = useGetInvolved();
   const active = links.find((l) => l.href === pathname)?.href ?? "/";
   const [hovered, setHovered] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
@@ -130,6 +132,10 @@ export function Navbar() {
             <div className="flex items-center gap-2">
               <ButtonLink
                 href="/#get-involved"
+                onClick={(e) => {
+                  e.preventDefault();
+                  getInvolved.open();
+                }}
                 className="hidden px-6 sm:inline-flex"
               >
                 Get Involved
@@ -192,7 +198,11 @@ export function Navbar() {
               </motion.ul>
               <ButtonLink
                 href="/#get-involved"
-                onClick={() => setOpen(false)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpen(false);
+                  getInvolved.open();
+                }}
                 className="mt-2 w-full sm:hidden"
               >
                 Get Involved

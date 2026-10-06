@@ -19,32 +19,32 @@ const pathways: { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: HandHeart,
     title: "Volunteer",
-    body: "Contribute verified field hours, acoustic recording analysis, camera-trap annotation, or hardware repair in your region.",
+    body: "Lend a hand with beach clean-ups, community outreach, and support for our field and research activities.",
   },
   {
     icon: Flag,
     title: "Participate",
-    body: "Join synchronized planetary bioblitzes, local sensor calibration walks, and open seasonal species audits.",
+    body: "Take part in our programmes, from school engagement on plastic pollution to local conservation initiatives.",
   },
   {
     icon: CalendarDays,
     title: "Attend",
-    body: "Register for quarterly telemetry debriefs, machine learning for ecology seminars, and live field expedition broadcasts.",
+    body: "Join our talks, workshops, and training sessions on ocean science, biodiversity, and conservation.",
   },
   {
     icon: Building2,
     title: "Partner",
-    body: "Collaborate as an academic institution, accredited environmental NGO, hardware innovator, or sovereign park authority.",
+    body: "Work with us as a university, research institution, conservation organisation, or community group.",
   },
   {
     icon: PiggyBank,
     title: "Donate",
-    body: "Directly finance autonomous acoustic hardware deployments, satellite bandwidth subscriptions, and early-career field grants.",
+    body: "Help fund field research, laboratory analysis, and community education that protect our ecosystems.",
   },
   {
     icon: UserPlus,
     title: "Join Network",
-    body: "Create an open researcher or advocate profile, explore local telemetry channels, and exchange data with 5,000+ peers.",
+    body: "Connect with students, researchers, and conservationists who share a passion for protecting our planet.",
   },
 ];
 
@@ -90,8 +90,8 @@ export function GetInvolved() {
           variants={fadeUp}
           className="mx-auto mt-4 max-w-[700px] text-center text-base leading-[1.6] text-ink-soft md:text-lg"
         >
-          Whether you contribute algorithmic expertise, field logistics, research grants, or local
-          stewardship, there is an open pathway for your impact.
+          Whether you’re a student, researcher, volunteer, or organisation, there’s a way for you to
+          help protect biodiversity with us.
         </motion.p>
 
         <motion.div
@@ -99,7 +99,7 @@ export function GetInvolved() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
           variants={{ visible: { transition: { staggerChildren: 0.09 } } }}
-          className="mt-10 grid items-start gap-5 sm:grid-cols-2 md:mt-11 lg:grid-cols-3 lg:gap-6"
+          className="mt-10 grid gap-5 sm:grid-cols-2 md:mt-11 lg:grid-cols-3 lg:gap-6"
         >
           {pathways.map((p) => (
             <PathwayCard key={p.title} {...p} />

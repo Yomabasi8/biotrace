@@ -3,6 +3,7 @@
 import { motion, useReducedMotion, type Variants } from "motion/react";
 import { Seahorse, Squid } from "@/components/ui/sea-creatures";
 import { easeOut, fadeUp } from "@/lib/motion";
+import { useGetInvolved } from "@/components/get-involved/get-involved-provider";
 import { cn } from "@/lib/utils";
 
 const headingWords = ["Let’s", "Build", "a", "Future", "Where", "People", "and", "\n", "Nature", "Thrive", "Together."];
@@ -12,7 +13,7 @@ const word: Variants = {
   visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.9, ease: easeOut } },
 };
 
-const actions: { label: string; href: string; className: string }[] = [
+const actions: { label: string; href: string; className: string; opensForm?: boolean }[] = [
   {
     label: "Join the Community",
     href: "/#get-involved",
@@ -21,6 +22,7 @@ const actions: { label: string; href: string; className: string }[] = [
   {
     label: "Get Involved",
     href: "/#get-involved",
+    opensForm: true,
     className: "bg-[#e0775f] text-ink hover:bg-[#e68a75]",
   },
 ];
@@ -40,6 +42,7 @@ const bubbles = [
 ];
 
 export function JoinCta() {
+  const getInvolved = useGetInvolved();
   const reduce = useReducedMotion();
 
   return (
@@ -127,10 +130,18 @@ export function JoinCta() {
           variants={{ visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } } }}
           className="mx-auto mt-12 grid max-w-[360px] gap-3 sm:flex sm:max-w-none sm:justify-center sm:gap-4 md:mt-[70px]"
         >
-          {actions.map(({ label, href, className }) => (
+          {actions.map(({ label, href, className, opensForm }) => (
             <motion.a
               key={label}
               href={href}
+              onClick={
+                opensForm
+                  ? (e) => {
+                      e.preventDefault();
+                      getInvolved.open();
+                    }
+                  : undefined
+              }
               variants={{
                 hidden: { opacity: 0, y: 20, scale: 0.95 },
                 visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: easeOut } },

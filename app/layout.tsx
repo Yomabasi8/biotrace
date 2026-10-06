@@ -5,6 +5,7 @@ import { SmoothScroll } from "@/components/providers/smooth-scroll";
 import { MotionProvider } from "@/components/providers/motion-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
+import { GetInvolvedProvider } from "@/components/get-involved/get-involved-provider";
 
 const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta",
@@ -39,9 +40,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="min-h-full flex flex-col">
         <MotionProvider>
           <SmoothScroll>
-            <Navbar />
-            {children}
-            <Footer />
+            <GetInvolvedProvider>
+              <Navbar />
+              {children}
+              <Footer />
+            </GetInvolvedProvider>
           </SmoothScroll>
         </MotionProvider>
       </body>
