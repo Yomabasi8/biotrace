@@ -62,6 +62,7 @@ export async function POST(request: Request) {
   if (!interestDef) errors.push("Choose how you'd like to get involved.");
   if (name.length < 2) errors.push("Enter your full name.");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push("Enter a valid email address.");
+  if (phone.replace(/\D/g, "").length < 7) errors.push("Enter a valid phone number.");
   if (!location) errors.push("Enter your country or city.");
   if (background && !(BACKGROUNDS as readonly string[]).includes(background)) errors.push("Choose a valid background.");
   if (interest === "partner" && !organisation) errors.push("Enter your organisation's name.");

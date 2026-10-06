@@ -250,8 +250,17 @@ export function GetInvolvedModal({
                     <Field label="Email address" required>
                       <input name="email" type="email" required autoComplete="email" className={inputCls} />
                     </Field>
-                    <Field label="Phone number" hint="Optional">
-                      <input name="phone" type="tel" autoComplete="tel" className={inputCls} />
+                    <Field label="Phone number" required>
+                      <input
+                        name="phone"
+                        type="tel"
+                        required
+                        autoComplete="tel"
+                        placeholder="+234 801 234 5678"
+                        pattern="[\d\s\+\-\(\)]{7,}"
+                        title="Enter a valid phone number, including your country code"
+                        className={inputCls}
+                      />
                     </Field>
                     <Field label="Country / city" required>
                       <input name="location" required autoComplete="country-name" className={inputCls} />
