@@ -101,6 +101,9 @@ export function DnaHelix({ className, style, speed = 0.1, phase = 0 }: DnaHelixP
 
     const draw = (time: number) => {
       ctx.clearRect(0, 0, W, H);
+      // A collapsed or detached element (e.g. mid page navigation) reports 0×0. Every spacing
+      // below scales with H, so a zero height would make the loops step by 0 and never end.
+      if (W < 4 || H < 4) return;
       const cy = H / 2;
       const amp = H * 0.3;
       const wavelength = H * 1.7;
@@ -123,7 +126,7 @@ export function DnaHelix({ className, style, speed = 0.1, phase = 0 }: DnaHelixP
       }
 
       // Base pairs: ~10 rungs per turn, each split into two complementary halves
-      const rungGap = wavelength / 10;
+      const rungGap = Math.max(4, wavelength / 10);
       const beadsPerRung = 8;
       const rungSize = H * 0.1;
       let k = 0;
