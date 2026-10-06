@@ -40,6 +40,12 @@ const columns: { title: string; links: { label: string; href: string; accent?: b
   },
 ];
 
+const socials: { label: string; href: string; icon: (props: { className?: string }) => React.ReactElement }[] = [
+  { label: "BioTrace Global on LinkedIn", href: "https://www.linkedin.com/company/biotrace-global", icon: LinkedInIcon },
+  { label: "BioTrace Global on Instagram", href: "https://www.instagram.com/biotrace.global/", icon: InstagramIcon },
+  { label: "Email BioTrace Global", href: "mailto:biotraceglobal@gmail.com", icon: GoogleIcon },
+];
+
 const rise: Variants = {
   hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: easeOut } },
@@ -72,6 +78,23 @@ export function Footer() {
               Empowering a global community to use science, technology, and collaboration to understand,
               monitor, and protect biodiversity.
             </p>
+            <ul className="mt-6 flex items-center gap-3">
+              {socials.map(({ label, href, icon: Icon }) => (
+                <li key={label}>
+                  <motion.a
+                    href={href}
+                    target={href.startsWith("http") ? "_blank" : undefined}
+                    rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    aria-label={label}
+                    whileHover={{ y: -3 }}
+                    whileTap={{ scale: 0.92 }}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-white/60 text-white transition-colors duration-300 hover:border-white hover:bg-white hover:text-[#0d4a63] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                  >
+                    <Icon className="h-[17px] w-[17px]" />
+                  </motion.a>
+                </li>
+              ))}
+            </ul>
           </motion.div>
 
           <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:contents">
@@ -188,5 +211,31 @@ function NewsletterBar() {
         )}
       </AnimatePresence>
     </motion.div>
+  );
+}
+
+function LinkedInIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className={className}>
+      <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" />
+      <circle cx="12" cy="12" r="4.2" />
+      <circle cx="17.6" cy="6.4" r="0.6" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+function GoogleIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden className={className}>
+      <path d="M12.24 10.29v3.92h5.45c-.24 1.4-1.66 4.1-5.45 4.1-3.28 0-5.96-2.72-5.96-6.07s2.68-6.07 5.96-6.07c1.87 0 3.12.8 3.83 1.48l2.61-2.51C17 3.62 14.82 2.67 12.24 2.67 6.9 2.67 2.58 6.99 2.58 12.24s4.32 9.57 9.66 9.57c5.58 0 9.28-3.92 9.28-9.44 0-.63-.07-1.12-.15-1.6l-9.13-.48z" />
+    </svg>
   );
 }

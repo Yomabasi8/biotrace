@@ -64,7 +64,7 @@ export function Founder() {
               transition={{ duration: 0.7, ease: easeOut }}
               whileHover={{ y: -3 }}
               whileTap={{ scale: 0.95 }}
-              className="mt-8 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#0a66c2] text-white shadow-[0_12px_24px_-12px_rgba(10,102,194,0.8)] transition-colors hover:bg-[#004182] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:mt-10"
+              className="mt-8 inline-flex h-11 w-11 items-center justify-center rounded-full border-[1.5px] border-[#0a66c2] text-[#0a66c2] transition-colors duration-300 hover:bg-[#0a66c2] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary md:mt-10"
             >
               <LinkedInIcon className="h-5 w-5" />
             </motion.a>

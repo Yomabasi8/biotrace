@@ -6,6 +6,9 @@ import { motion, useScroll, useTransform, type MotionValue } from "motion/react"
 import { ScrollRevealText } from "@/components/ui/scroll-reveal-text";
 import { MissionVision } from "@/components/sections/about-page/mission-vision";
 import { Founder } from "@/components/sections/about-page/founder";
+import { Team } from "@/components/sections/about-page/team";
+import { TeamRoster } from "@/components/sections/about-page/team-roster";
+import { JoinCta } from "@/components/sections/join-cta";
 import { easeOut } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
@@ -80,6 +83,9 @@ export function AboutIntro() {
       <Mission />
       <MissionVision />
       <Founder />
+      <Team />
+      <TeamRoster />
+      <JoinCta />
     </main>
   );
 }

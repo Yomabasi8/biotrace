@@ -15,12 +15,12 @@ const word: Variants = {
 const actions: { label: string; href: string; className: string }[] = [
   {
     label: "Join the Community",
-    href: "#get-involved",
+    href: "/#get-involved",
     className: "bg-white text-ink hover:bg-[#eef4f7]",
   },
   {
     label: "Get Involved",
-    href: "#get-involved",
+    href: "/#get-involved",
     className: "bg-[#e0775f] text-ink hover:bg-[#e68a75]",
   },
 ];
