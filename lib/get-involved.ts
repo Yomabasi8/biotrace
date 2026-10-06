@@ -10,6 +10,7 @@ export type InterestId = (typeof INTERESTS)[number]["id"];
 
 export const BACKGROUNDS = [
   "Student",
+  "Early-career ocean professional",
   "Researcher / Academic",
   "Conservation professional",
   "Educator",

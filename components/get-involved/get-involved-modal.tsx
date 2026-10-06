@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { useLenis } from "lenis/react";
@@ -125,21 +126,63 @@ export function GetInvolvedModal({
         data-lenis-prevent
       >
         {/* Header */}
-        <div className="flex items-start justify-between gap-4 border-b border-black/5 px-6 pt-6 pb-5 sm:px-8 sm:pt-7">
-          <div>
-            <p className="font-mono text-[11px] font-medium tracking-[0.2em] text-primary uppercase">Get Involved</p>
-            <h2 id={titleId} className="mt-1.5 text-[26px] leading-tight font-bold text-ink sm:text-[30px]">
-              Join the BioTrace community
-            </h2>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close form"
-            className="-mt-1 -mr-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-black/5 hover:text-ink focus-visible:outline-2 focus-visible:outline-primary"
+        {/* Header: the same deep-ocean treatment as the site's call-to-action section */}
+        <div className="relative isolate shrink-0 overflow-hidden bg-[linear-gradient(160deg,#196180_0%,#2e6680_55%,#24566d_100%)] px-6 pt-6 pb-7 text-white sm:px-8 sm:pt-7 sm:pb-8">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-24 left-1/3 -z-10 h-56 w-[420px] rounded-[50%] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.16)_0%,rgba(255,255,255,0)_70%)]"
+          />
+          {[
+            { left: "8%", size: 8, duration: 7, delay: 0 },
+            { left: "34%", size: 5, duration: 6, delay: 2 },
+            { left: "56%", size: 10, duration: 9, delay: 1 },
+            { left: "71%", size: 6, duration: 7.5, delay: 3.5 },
+          ].map((b, i) => (
+            <motion.span
+              key={i}
+              aria-hidden
+              className="pointer-events-none absolute -bottom-3 -z-10 rounded-full border border-white/30 bg-white/10"
+              style={{ left: b.left, width: b.size, height: b.size }}
+              animate={{ y: [0, -170], opacity: [0, 0.9, 0] }}
+              transition={{ duration: b.duration, delay: b.delay, repeat: Infinity, ease: "linear" }}
+            />
+          ))}
+          {/* Turtle swimming past behind the title (it swims down into the thank-you message once sent) */}
+          <motion.div
+            aria-hidden
+            initial={{ opacity: 0, x: 40 }}
+            animate={status.kind === "sent" ? { opacity: 0, x: 60 } : { opacity: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: easeOut }}
+            className="pointer-events-none absolute right-12 -bottom-3 -z-10 hidden w-[150px] sm:block"
           >
-            <X className="h-5 w-5" />
-          </button>
+            <motion.div animate={{ y: [0, -6, 0], rotate: [-3, 2, -3] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
+              <Image src="/Images/turtle.png" alt="" width={480} height={340} sizes="150px" className="h-auto w-full opacity-95" />
+            </motion.div>
+          </motion.div>
+
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="flex items-center gap-3 font-mono text-[11px] font-medium tracking-[0.22em] text-white/75 uppercase">
+                <span className="h-px w-6 bg-white/40" />
+                Get Involved
+                <span className="h-px w-6 bg-white/40" />
+              </p>
+              <h2 id={titleId} className="mt-2 text-[26px] leading-tight font-bold text-white sm:text-[32px]">
+                Join the BioTrace community
+              </h2>
+              <p className="mt-1.5 max-w-[380px] text-sm leading-relaxed text-white/80">
+                Volunteer, partner, or collaborate with us to protect biodiversity on land and at sea.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label="Close form"
+              className="-mt-1 -mr-2 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-white"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
         </div>
 
         <AnimatePresence mode="wait" initial={false}>
@@ -168,7 +211,7 @@ export function GetInvolvedModal({
                           key={opt.id}
                           className={cn(
                             "relative cursor-pointer rounded-2xl border-[1.5px] p-4 transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/40",
-                            on ? "border-primary bg-primary/[0.05]" : "border-black/10 hover:border-black/25",
+                            on ? "border-primary bg-[#dee8ed]" : "border-black/10 hover:border-primary/40 hover:bg-[#f4f8fa]",
                           )}
                         >
                           <input
@@ -184,7 +227,7 @@ export function GetInvolvedModal({
                             <span
                               className={cn(
                                 "flex h-5 w-5 items-center justify-center rounded-full border-[1.5px] transition-colors",
-                                on ? "border-primary bg-primary text-white" : "border-black/20",
+                                on ? "border-coral bg-coral text-white" : "border-black/20",
                               )}
                             >
                               {on && <Check className="h-3 w-3" strokeWidth={3} />}
@@ -245,7 +288,7 @@ export function GetInvolvedModal({
                     {FOCUS_AREAS.map((area) => (
                       <label key={area} className="cursor-pointer">
                         <input type="checkbox" name="areas" value={area} className="peer sr-only" />
-                        <span className="inline-flex items-center gap-1.5 rounded-full border-[1.5px] border-black/10 px-3.5 py-2 text-[13px] text-ink-soft transition-colors peer-checked:border-primary peer-checked:bg-primary peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40 hover:border-black/25">
+                        <span className="inline-flex items-center gap-1.5 rounded-full border-[1.5px] border-[#d3e0e6] bg-white px-3.5 py-2 text-[13px] text-ink-soft transition-colors peer-checked:border-primary peer-checked:bg-primary peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-primary/40 hover:border-primary/40">
                           {area}
                         </span>
                       </label>
@@ -297,7 +340,7 @@ export function GetInvolvedModal({
                         }}
                         className={cn(
                           "mt-2 flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-[1.5px] border-dashed px-4 py-6 text-center transition-colors has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-primary/40",
-                          dragging ? "border-primary bg-primary/[0.05]" : "border-black/15 hover:border-primary/50 hover:bg-[#f6f9fb]",
+                          dragging ? "border-primary bg-[#dee8ed]" : "border-[#c9d7de] bg-[#f8fafb] hover:border-primary/50 hover:bg-[#f4f8fa]",
                         )}
                       >
                         <input
@@ -309,7 +352,7 @@ export function GetInvolvedModal({
                         />
                         {cv ? (
                           <span className="flex w-full items-center gap-3 text-left">
-                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#dee8ed] text-primary">
                               <FileText className="h-5 w-5" />
                             </span>
                             <span className="min-w-0 flex-1">
@@ -352,7 +395,7 @@ export function GetInvolvedModal({
               </div>
 
               {/* Footer */}
-              <div className="flex flex-col-reverse gap-3 border-t border-black/5 bg-white px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
+              <div className="flex flex-col-reverse gap-3 border-t border-[#dbe6eb] bg-[#f4f8fa] px-6 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
                 <p role="status" aria-live="polite" className={cn("text-[13px]", status.kind === "error" ? "text-[#c4553f]" : "text-ink-soft")}>
                   {status.kind === "error" ? status.message : "We usually reply within a few days."}
                 </p>
@@ -374,14 +417,12 @@ export function GetInvolvedModal({
 }
 
 const inputCls =
-  "h-12 w-full rounded-xl border-[1.5px] border-black/10 bg-white px-4 text-[15px] text-ink transition-colors placeholder:text-ink-soft/40 hover:border-black/20 focus:border-primary focus:ring-4 focus:ring-primary/10 focus:outline-none user-invalid:border-[#e0775f]";
+  "h-12 w-full rounded-xl border-[1.5px] border-[#d3e0e6] bg-white px-4 text-[15px] text-ink transition-colors placeholder:text-ink-soft/40 hover:border-primary/40 focus:border-primary focus:ring-4 focus:ring-[#dee8ed] focus:outline-none user-invalid:border-coral";
 
 function Legend({ n, children }: { n: number; children: React.ReactNode }) {
   return (
-    <legend className="flex items-center gap-2.5 font-heading text-[17px] font-semibold tracking-[-0.3px] text-ink">
-      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 font-mono text-[11px] font-semibold text-primary">
-        {n}
-      </span>
+    <legend className="flex items-center gap-3 font-heading text-[18px] font-bold tracking-[-0.4px] text-ink">
+      <span className="font-mono text-xs font-medium tracking-[0.12em] text-coral">{String(n).padStart(2, "0")}</span>
       {children}
     </legend>
   );
@@ -404,7 +445,7 @@ function Field({
     <label className={cn("block", className)}>
       <span className="mb-1.5 block text-sm font-medium text-ink">
         {label}
-        {required && <span className="text-[#e0775f]"> *</span>}
+        {required && <span className="text-coral"> *</span>}
         {hint && <span className="font-normal text-ink-soft"> · {hint}</span>}
       </span>
       {children}
@@ -434,14 +475,19 @@ function Success({ onClose, interest }: { onClose: () => void; interest: Interes
       transition={{ duration: 0.5, ease: easeOut }}
       className="flex flex-col items-center px-8 py-14 text-center"
     >
-      <motion.span
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.1 }}
-        className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-white"
+      <motion.div
+        initial={{ opacity: 0, x: -60, rotate: -8 }}
+        animate={{ opacity: 1, x: 0, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 70, damping: 14, delay: 0.1 }}
+        className="relative w-[150px]"
       >
-        <Check className="h-8 w-8" strokeWidth={2.5} />
-      </motion.span>
+        <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}>
+          <Image src="/Images/turtle.png" alt="" width={480} height={340} sizes="150px" className="h-auto w-full -scale-x-100" />
+        </motion.div>
+        <span className="absolute -right-1 -bottom-1 flex h-9 w-9 items-center justify-center rounded-full bg-coral text-white ring-4 ring-white">
+          <Check className="h-5 w-5" strokeWidth={3} />
+        </span>
+      </motion.div>
       <h3 className="mt-6 text-[26px] font-bold text-ink">Thank you!</h3>
       <p className="mt-2 max-w-[420px] text-base leading-relaxed text-ink-soft">
         We&apos;ve received your {label} request. The BioTrace team will review it and get back to you by email.
