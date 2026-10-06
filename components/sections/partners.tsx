@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { ArrowRight, Handshake } from "lucide-react";
+import { Handshake } from "lucide-react";
 import { ButtonLink } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { easeOut, fadeUp } from "@/lib/motion";
@@ -99,18 +99,13 @@ function FeaturedPartner() {
           viewport={{ once: true, amount: 0.4 }}
           variants={{ visible: { transition: { staggerChildren: 0.1, delayChildren: 0.3 } } }}
         >
-          <motion.span
+          <motion.p
             variants={fadeUp}
-            className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-white/70 px-3 py-1.5 font-mono text-[11px] font-medium tracking-[0.18em] text-primary uppercase"
+            className="font-mono text-xs font-medium tracking-[0.22em] text-primary uppercase md:text-[13px]"
           >
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-coral opacity-70" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-coral" />
-            </span>
             Founding Partner
-          </motion.span>
-
-          <motion.h3 variants={fadeUp} className="mt-5 text-[30px] leading-tight font-bold text-ink md:text-[38px]">
+          </motion.p>
+          <motion.h3 variants={fadeUp} className="mt-3 text-[30px] leading-tight font-bold text-ink md:text-[38px]">
             ATES Initiative
           </motion.h3>
           <motion.p variants={fadeUp} className="mt-2 text-base font-medium text-primary md:text-lg">
@@ -132,18 +127,11 @@ function FeaturedPartner() {
             ))}
           </motion.ul>
 
-          <motion.div variants={fadeUp} className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
+          <motion.div variants={fadeUp} className="mt-9">
             <ButtonLink href="#get-involved" className="gap-2">
               <Handshake className="h-[18px] w-[18px]" strokeWidth={1.8} />
               Become a Partner
             </ButtonLink>
-            <a
-              href="#get-involved"
-              className="group inline-flex items-center gap-1.5 text-[15px] font-medium text-ink transition-colors hover:text-primary"
-            >
-              Partnership enquiries
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
           </motion.div>
         </motion.div>
       </div>
@@ -171,9 +159,6 @@ function PartnerOrbit() {
         <span className="absolute bottom-[6%] left-[16%] h-1.5 w-1.5 rounded-full bg-primary/60" />
       </motion.div>
 
-      {/* Soft glow behind the logo */}
-      <div className="absolute inset-[18%] rounded-full bg-[radial-gradient(circle,rgba(25,97,128,0.16)_0%,transparent_70%)] blur-2xl" />
-
       {/* Logo */}
       <motion.div
         initial={{ opacity: 0, scale: 0.6 }}
@@ -185,7 +170,7 @@ function PartnerOrbit() {
         <motion.div
           animate={reduce ? undefined : { y: [0, -8, 0] }}
           transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          className="relative h-full w-full overflow-hidden rounded-full bg-white p-[7%] shadow-[0_30px_60px_-25px_rgba(25,97,128,0.45)] ring-1 ring-black/5"
+          className="relative h-full w-full overflow-hidden rounded-full bg-white p-[7%] ring-1 ring-black/5"
         >
           {/* 7% inset keeps the logo's tagline corners inside the circle */}
           <div className="relative h-full w-full">

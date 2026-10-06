@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   AnimatePresence,
   motion,
@@ -14,16 +15,18 @@ import { ButtonLink } from "@/components/ui/button";
 import { easeOut } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 
+// Page links are matched against the current route; in-page sections live on the home page
 const links = [
-  { label: "Home", href: "#home" },
-  { label: "About Us", href: "#about" },
-  { label: "Our Work", href: "#work" },
-  { label: "Partners", href: "#partners" },
-  { label: "Research & Stories", href: "#research" },
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/about" },
+  { label: "Our Work", href: "/#process" },
+  { label: "Partners", href: "/#partners" },
+  { label: "Research & Stories", href: "/#research" },
 ];
 
 export function Navbar() {
-  const [active, setActive] = useState(links[0].href);
+  const pathname = usePathname();
+  const active = links.find((l) => l.href === pathname)?.href ?? "/";
   const [hovered, setHovered] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -69,8 +72,7 @@ export function Navbar() {
             className="flex h-[68px] items-center justify-between rounded-full bg-white pr-2.5 pl-4 md:h-[82px] md:pl-5"
           >
             <Link
-              href="#home"
-              onClick={() => setActive("#home")}
+              href="/"
               className="shrink-0"
               aria-label="BioTrace Global home"
             >
@@ -102,9 +104,8 @@ export function Navbar() {
                     }}
                     className="relative"
                   >
-                    <a
+                    <Link
                       href={link.href}
-                      onClick={() => setActive(link.href)}
                       onMouseEnter={() => setHovered(link.href)}
                       aria-current={isActive ? "page" : undefined}
                       className={cn(
@@ -113,7 +114,7 @@ export function Navbar() {
                       )}
                     >
                       {link.label}
-                    </a>
+                    </Link>
                     {underlineTarget === link.href && (
                       <motion.span
                         layoutId="nav-underline"
@@ -128,7 +129,7 @@ export function Navbar() {
 
             <div className="flex items-center gap-2">
               <ButtonLink
-                href="#get-involved"
+                href="/#get-involved"
                 className="hidden px-6 sm:inline-flex"
               >
                 Get Involved
@@ -175,12 +176,9 @@ export function Navbar() {
                     key={link.href}
                     variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0 } }}
                   >
-                    <a
+                    <Link
                       href={link.href}
-                      onClick={() => {
-                        setActive(link.href);
-                        setOpen(false);
-                      }}
+                      onClick={() => setOpen(false)}
                       className={cn(
                         "flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg transition-colors hover:bg-[#f6f6f6]",
                         active === link.href ? "text-coral" : "text-ink",
@@ -188,12 +186,12 @@ export function Navbar() {
                     >
                       {link.label}
                       {active === link.href && <span className="h-1.5 w-1.5 rounded-full bg-coral" />}
-                    </a>
+                    </Link>
                   </motion.li>
                 ))}
               </motion.ul>
               <ButtonLink
-                href="#get-involved"
+                href="/#get-involved"
                 onClick={() => setOpen(false)}
                 className="mt-2 w-full sm:hidden"
               >

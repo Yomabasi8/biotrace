@@ -95,7 +95,7 @@ export function About() {
               transition={{ duration: 0.8, ease: easeOut }}
               className="mt-12 md:mt-[70px]"
             >
-              <ButtonLink href="#about" className="px-11">
+              <ButtonLink href="/about" className="px-11">
                 Learn More
               </ButtonLink>
             </motion.div>

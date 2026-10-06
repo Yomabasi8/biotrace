@@ -3,7 +3,6 @@
 import { useRef } from "react";
 import { motion, useMotionTemplate, useMotionValue, type Variants } from "motion/react";
 import {
-  ArrowRight,
   Building2,
   CalendarDays,
   Flag,
@@ -16,48 +15,36 @@ import { Eyebrow } from "@/components/ui/eyebrow";
 import { Seaweed } from "@/components/ui/sea-creatures";
 import { easeOut, fadeUp } from "@/lib/motion";
 
-const pathways: { icon: LucideIcon; title: string; body: string; cta: string; href: string }[] = [
+const pathways: { icon: LucideIcon; title: string; body: string }[] = [
   {
     icon: HandHeart,
     title: "Volunteer",
     body: "Contribute verified field hours, acoustic recording analysis, camera-trap annotation, or hardware repair in your region.",
-    cta: "Volunteer With Us",
-    href: "#get-involved",
   },
   {
     icon: Flag,
     title: "Participate",
     body: "Join synchronized planetary bioblitzes, local sensor calibration walks, and open seasonal species audits.",
-    cta: "Find Programs",
-    href: "#get-involved",
   },
   {
     icon: CalendarDays,
     title: "Attend",
     body: "Register for quarterly telemetry debriefs, machine learning for ecology seminars, and live field expedition broadcasts.",
-    cta: "Upcoming Events",
-    href: "#get-involved",
   },
   {
     icon: Building2,
     title: "Partner",
     body: "Collaborate as an academic institution, accredited environmental NGO, hardware innovator, or sovereign park authority.",
-    cta: "Partner With Us",
-    href: "#get-involved",
   },
   {
     icon: PiggyBank,
     title: "Donate",
     body: "Directly finance autonomous acoustic hardware deployments, satellite bandwidth subscriptions, and early-career field grants.",
-    cta: "Support BioTrace",
-    href: "#get-involved",
   },
   {
     icon: UserPlus,
     title: "Join Network",
     body: "Create an open researcher or advocate profile, explore local telemetry channels, and exchange data with 5,000+ peers.",
-    cta: "Create Free Profile",
-    href: "#get-involved",
   },
 ];
 
@@ -72,7 +59,7 @@ export function GetInvolved() {
   return (
     <section
       id="get-involved"
-      className="relative isolate overflow-hidden bg-[#dee8ed] pt-20 pb-[150px] md:pt-[84px] md:pb-[168px]"
+      className="relative isolate overflow-hidden bg-[#dee8ed] pt-20 pb-[150px] md:pt-[84px] md:pb-[206px]"
     >
       <div className="container-site">
         <Eyebrow>Participate</Eyebrow>
@@ -134,19 +121,7 @@ export function GetInvolved() {
   );
 }
 
-function PathwayCard({
-  icon: Icon,
-  title,
-  body,
-  cta,
-  href,
-}: {
-  icon: LucideIcon;
-  title: string;
-  body: string;
-  cta: string;
-  href: string;
-}) {
+function PathwayCard({ icon: Icon, title, body }: { icon: LucideIcon; title: string; body: string }) {
   const ref = useRef<HTMLElement>(null);
   const mx = useMotionValue(-200);
   const my = useMotionValue(-200);
@@ -182,14 +157,6 @@ function PathwayCard({
 
         <h3 className="mt-5 text-[22px] leading-tight font-bold text-ink">{title}</h3>
         <p className="mt-2 max-w-[330px] text-sm leading-5 text-ink-soft">{body}</p>
-
-        <a
-          href={href}
-          className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-        >
-          {cta}
-          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" strokeWidth={2} />
-        </a>
       </div>
     </motion.article>
   );
