@@ -8,15 +8,15 @@ import { easeOut } from "@/lib/motion";
 const members = [
   {
     name: "Prof. Eunice Idowu",
-    role: "Board of Trustees",
-    bio: "As a Trustee, she provides strategic guidance and contributes her expertise to strengthening BioTrace Global’s scientific and environmental mission.",
+    role: "Advisory Board",
+    bio: "As a member of the Advisory Board, she provides strategic guidance and contributes her expertise to strengthening BioTrace Global’s scientific and environmental mission.",
     src: "/Images/team/eunice.webp",
     ring: "#f4a7b6",
   },
   {
     name: "Dr. Segun Olayinka Oladipo",
-    role: "Board of Trustees",
-    bio: "As a Trustee, Dr. Segun Olayinka Oladipo contributes to the organisation’s governance and strategic development, helping to guide BioTrace Global’s growth and long-term impact.",
+    role: "Advisory Board",
+    bio: "As a member of the Advisory Board, Dr. Segun Olayinka Oladipo advises on the organisation’s strategic development, helping to guide BioTrace Global’s growth and long-term impact.",
     src: "/Images/team/segun.webp",
     ring: "#3fc8d2",
   },
