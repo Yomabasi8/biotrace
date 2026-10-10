@@ -73,7 +73,8 @@ export async function POST(request: Request) {
 
   const cv = form.get("cv");
   let attachment: { filename: string; content: Buffer; contentType: string } | undefined;
-  if (cv instanceof File && cv.size > 0) {
+  if (!(cv instanceof File) || cv.size === 0) errors.push("Please upload your CV.");
+  else {
     if (cv.size > CV_MAX_BYTES) errors.push("Your CV must be 4 MB or smaller.");
     else if (!(cv.type in CV_TYPES)) errors.push("Your CV must be a PDF, DOC, or DOCX file.");
     else

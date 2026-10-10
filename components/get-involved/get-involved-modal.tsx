@@ -35,6 +35,7 @@ export function GetInvolvedModal({
   const [interest, setInterest] = useState<InterestId>(initialInterest ?? "volunteer");
   const [cv, setCv] = useState<File | null>(null);
   const [cvError, setCvError] = useState("");
+  const cvRef = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
@@ -86,6 +87,12 @@ export function GetInvolvedModal({
     e.preventDefault();
     const form = formRef.current!;
     if (!form.reportValidity()) return;
+    // The file input is visually hidden and drag-and-drop bypasses it, so the CV is checked here
+    if (!cv) {
+      setCvError("Please upload your CV.");
+      cvRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
     const data = new FormData(form);
     data.set("interest", interest);
     data.delete("cv");
@@ -332,9 +339,10 @@ export function GetInvolvedModal({
                       <input name="link" type="url" placeholder="https://" className={inputCls} />
                     </Field>
 
-                    <div>
+                    <div ref={cvRef}>
                       <p className="text-sm font-medium text-ink">
-                        Upload your CV <span className="font-normal text-ink-soft">(optional · PDF, DOC or DOCX · max 4 MB)</span>
+                        Upload your CV<span className="text-coral"> *</span>{" "}
+                        <span className="font-normal text-ink-soft">(PDF, DOC or DOCX · max 4 MB)</span>
                       </p>
                       <label
                         onDragOver={(e) => {
