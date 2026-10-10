@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, type Variants } from "motion/react";
 import { BackgroundVideo } from "@/components/ui/background-video";
 import { ButtonLink } from "@/components/ui/button";
+import { useGetInvolved } from "@/components/get-involved/get-involved-provider";
 import { easeOut } from "@/lib/motion";
 
 // "\n" marks the desktop line break from the design
@@ -28,6 +29,7 @@ const trail: Variants = {
 };
 
 export function Hero() {
+  const getInvolved = useGetInvolved();
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -100,7 +102,15 @@ export function Hero() {
             <ButtonLink href="/work" className="w-full max-w-[260px] sm:w-auto">
               Explore our Work
             </ButtonLink>
-            <ButtonLink href="#support" variant="blush" className="w-full max-w-[260px] sm:w-auto">
+            <ButtonLink
+              href="/#get-involved"
+              onClick={(e) => {
+                e.preventDefault();
+                getInvolved.open();
+              }}
+              variant="blush"
+              className="w-full max-w-[260px] sm:w-auto"
+            >
               Support BioTrace
             </ButtonLink>
           </motion.div>

@@ -34,7 +34,7 @@ const columns: { title: string; links: { label: string; href: string; accent?: b
   {
     title: "Connect & Support",
     links: [
-      { label: "Donate to the Mission", href: "/#get-involved", accent: true },
+      { label: "Donate to the Mission", href: "/#get-involved", opens: "any", accent: true },
       { label: "Volunteer Application", href: "/#get-involved", opens: "volunteer" },
       { label: "Partner With Us", href: "/#partners", opens: "partner" },
       { label: "biotraceglobal@gmail.com", href: "mailto:biotraceglobal@gmail.com" },

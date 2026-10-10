@@ -17,6 +17,7 @@ const actions: { label: string; href: string; className: string; opensForm?: boo
   {
     label: "Join the Community",
     href: "/#get-involved",
+    opensForm: true,
     className: "bg-white text-ink hover:bg-[#eef4f7]",
   },
   {
