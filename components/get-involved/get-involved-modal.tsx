@@ -75,12 +75,19 @@ export function GetInvolvedModal({
     };
   }, [lenis, onClose]);
 
-  const pickFile = (file: File | undefined | null) => {
+  const pickFile = async (file: File | undefined | null) => {
     setCvError("");
     if (!file) return;
     if (!(file.type in CV_TYPES)) return setCvError("Please upload a PDF, DOC, or DOCX file.");
     if (file.size > CV_MAX_BYTES) return setCvError("That file is over 4 MB. Please upload a smaller version.");
-    setCv(file);
+    // Copy the bytes now: on Android, a file picked from Drive, WhatsApp, etc. is only a reference that can
+    // expire before submit, and the upload then fails with "Failed to fetch"
+    try {
+      const bytes = await file.arrayBuffer();
+      setCv(new File([bytes], file.name, { type: file.type }));
+    } catch {
+      setCvError("We couldn't read that file. Please save it to your device, then upload it again.");
+    }
   };
 
   const submit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -104,7 +111,14 @@ export function GetInvolvedModal({
       if (!res.ok) throw new Error(body.error || "Something went wrong. Please try again.");
       setStatus({ kind: "sent" });
     } catch (err) {
-      setStatus({ kind: "error", message: err instanceof Error ? err.message : "Something went wrong." });
+      // fetch rejects with a TypeError ("Failed to fetch", "Load failed") when no response arrives at all
+      const message =
+        err instanceof TypeError
+          ? "We couldn't reach our server. Check your connection and try again, or email biotraceglobal@gmail.com."
+          : err instanceof Error
+            ? err.message
+            : "Something went wrong.";
+      setStatus({ kind: "error", message });
     }
   };
 
